@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+ * Design tokens — extraídos do Figma
+ * "U.Ai System — Wireframe Landing Page" (fileKey 9R5vtI8pwAE0S9d0bXRkwv)
+ *  · Cores      → section 7:269
+ *  · Tipografia → section 7:275 (Inter)
+ *
+ * As escalas tipográficas são fluidas e interpolam linearmente entre os dois
+ * breakpoints desenhados: 360px (Home Mob) e 1366px (Desktop). Nesses dois
+ * valores o resultado é idêntico ao Figma; entre eles, escala sem saltos.
+ * ------------------------------------------------------------------------- */
+@theme {
+  --color-brand: #1b449d;
+  --color-accent: #3adcdd;
+  /* Tons de texto usados a partir da seção de serviços (nós 7:64 e 7:104). */
+  --color-ink: #161c28;
+  --color-muted: #a9a7b6;
+
+  --font-sans:
+    var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* h1 do hero — 32px/33.907px (360) → 80px/80px (1366), tracking -0.02em */
+  --text-hero-title: clamp(2rem, 0.9264rem + 4.7714vw, 5rem);
+  --text-hero-title--line-height: clamp(2.1192rem, 1.0883rem + 4.5818vw, 5rem);
+  --text-hero-title--letter-spacing: -0.02em;
+  --text-hero-title--font-weight: 700;
+
+  /* subtítulo do hero — 16px (360) → 24px (1366) */
+  --text-hero-lead: clamp(1rem, 0.8211rem + 0.7952vw, 1.5rem);
+  --text-hero-lead--line-height: 1.21;
+  --text-hero-lead--font-weight: 500;
+
+  /* rótulo do CTA — 16px (360) → 18px (1366) */
+  --text-cta: clamp(1rem, 0.9553rem + 0.1988vw, 1.125rem);
+  --text-cta--line-height: 1.21;
+  --text-cta--font-weight: 700;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: #fff;
+    color: var(--color-brand);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Foco visível consistente e com contraste sobre o fundo azul do hero. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* ---------------------------------------------------------------------
+   * Drawer do menu mobile (`<dialog>` modal) — frame "Menu Mob" 7:553.
+   * Zera os defaults do <dialog> (margem automática, borda, largura máxima)
+   * e anima entrada e saída com `allow-discrete`, sem JS de transição.
+   * ------------------------------------------------------------------- */
+  .site-drawer {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+  }
+
+  .site-drawer::backdrop {
+    background-color: rgb(10 25 60 / 0.6);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .site-drawer {
+      transition:
+        translate 280ms ease,
+        display 280ms allow-discrete,
+        overlay 280ms allow-discrete;
+    }
+
+    .site-drawer:not([open]) {
+      translate: -100% 0;
+    }
+
+    .site-drawer::backdrop {
+      transition:
+        opacity 280ms ease,
+        display 280ms allow-discrete,
+        overlay 280ms allow-discrete;
+    }
+
+    .site-drawer:not([open])::backdrop {
+      opacity: 0;
+    }
+  }
+}
+
+/* `@starting-style` precisa ficar no topo do arquivo, fora de `@layer` e de
+ * `@media`: aninhado, o Chrome trata a regra como estilo normal e o drawer
+ * fica preso fora da tela. Aqui ele só define o estado inicial da transição. */
+@starting-style {
+  .site-drawer[open] {
+    translate: -100% 0;
+  }
+
+  .site-drawer[open]::backdrop {
+    opacity: 0;
+  }
+}
