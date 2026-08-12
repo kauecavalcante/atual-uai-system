@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# arquivos locais de ferramentas de editor — o next dev recria AGENTS.md a
+# cada execução, então ele reaparece no disco mas nunca deve entrar em commit
+AGENTS.md
+CLAUDE.md
+.claude/
+.cursor/
+.github/copilot-instructions.md
