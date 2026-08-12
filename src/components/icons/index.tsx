@@ -41,6 +41,88 @@ export function MenuIcon(props: IconProps) {
   );
 }
 
+/**
+ * download — nós 7:134 / 7:389 (traço, 24×24).
+ *
+ * O wireframe usa o mesmo conjunto Feather dos demais ícones de traço
+ * (`phone-call`, `bar-chart-2`), e este é o glifo `download` do conjunto.
+ */
+export function DownloadIcon(props: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...base}
+      {...props}
+    >
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <path d="m7 10 5 5 5-5" />
+      <path d="M12 15V3" />
+    </svg>
+  );
+}
+
+/** mail — nós 7:221 / 7:466 (traço, contato do rodapé). */
+export function MailIcon(props: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...base}
+      {...props}
+    >
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+      <path d="m22 6-10 7L2 6" />
+    </svg>
+  );
+}
+
+/** map-pin — nós 7:224 / 7:469 (traço, endereço do rodapé). */
+export function MapPinIcon(props: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...base}
+      {...props}
+    >
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+  );
+}
+
+/** arrow-up — nós 7:207 / 7:482 (botão de voltar ao topo). */
+export function ArrowUpIcon(props: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...base}
+      {...props}
+    >
+      <path d="M12 19V5" />
+      <path d="m5 12 7-7 7 7" />
+    </svg>
+  );
+}
+
 /** Selo de check da lista de benefícios — nó 7:72 (32×32, círculo vazado). */
 export function CheckBadgeIcon(props: IconProps) {
   return (

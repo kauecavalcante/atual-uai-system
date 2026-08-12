@@ -25,6 +25,16 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
   },
+  experimental: {
+    /**
+     * O formulário de cadastro envia até 5 anexos de 5 MB pela Server Action.
+     * O padrão do Next é 1 MB, o que rejeitaria o envio antes da validação.
+     *
+     * Para produção com anexos grandes, o caminho recomendado é upload direto
+     * para o storage com URL assinada, deixando a action só com os metadados.
+     */
+    serverActions: { bodySizeLimit: "28mb" },
+  },
   async headers() {
     return [
       {

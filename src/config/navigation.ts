@@ -34,10 +34,7 @@ export const mainNav: readonly NavItem[] = [
   },
 ];
 
-/**
- * Botão "Contato" (nós 7:54 / 7:555). Vira um link `tel:` assim que o telefone
- * de atendimento for definido; por ora leva ao formulário de cadastro.
- */
+/** Botão "Contato" (nós 7:54 / 7:555) — leva ao formulário de cadastro. */
 export const contactAction = {
   label: "Contato",
   href: `#${sectionIds.signup}`,

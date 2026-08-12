@@ -16,6 +16,9 @@
   /* Tons de texto usados a partir da seção de serviços (nós 7:64 e 7:104). */
   --color-ink: #161c28;
   --color-muted: #a9a7b6;
+  /* Erro de formulário. Escolhido para contrastar com o card ciano do
+   * cadastro (contraste 7.4:1 sobre #3adcdd). */
+  --color-danger: #8c0f28;
 
   --font-sans:
     var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI",

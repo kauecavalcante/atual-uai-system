@@ -25,6 +25,8 @@ export const buttonVariants = cva(
           "shadow-[0_2px_1px_0_rgba(27,68,157,0.25)] lg:shadow-[0_4px_2px_0_rgba(27,68,157,0.25)]",
           "hover:brightness-105",
         ],
+        // Botão "Enviar" do formulário (nó 7:202): sólido no azul da marca.
+        solid: ["bg-brand text-white", "hover:brightness-125"],
       },
       size: {
         // ≥ lg as medidas viram proporções puras de 1366 (18 / 30 / 20px),
@@ -34,6 +36,12 @@ export const buttonVariants = cva(
           "px-[clamp(0.7947rem,0.4081rem+1.7182vw,1.875rem)]",
           "py-[clamp(0.5298rem,0.2721rem+1.1454vw,1.25rem)]",
           "lg:px-[2.1962vw] lg:py-[1.4641vw] lg:text-[1.3177vw]",
+        ],
+        // Botões da seção de cadastro (nós 7:131 e 7:202). Diferente do CTA
+        // do hero, não escalam com a viewport: são controles, não arte.
+        form: ["h-[46px] w-full gap-2.5 px-[30px] text-[18px] font-bold"],
+        checklist: [
+          "h-[48px] w-full gap-2.5 px-[30px] text-[18px] font-bold lg:w-[218px]",
         ],
       },
     },
