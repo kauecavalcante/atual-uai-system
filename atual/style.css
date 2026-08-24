@@ -1,0 +1,15 @@
+/*
+Theme Name: Atual
+Theme URI: https://atualsecuritizadora.com.br
+Author: UI Digital
+Description: Landing page one-page da Atual Securitizadora — antecipação de recebíveis. Tema custom convertido do projeto Next.js "atual", fiel ao Figma "Atual — One Page".
+Version: 1.0.0
+Requires at least: 6.4
+Tested up to: 6.8
+Requires PHP: 8.1
+License: Proprietary
+Text Domain: atual
+*/
+
+/* Todo o CSS do tema é compilado em assets/css/main.css (Tailwind v4).
+   Este arquivo existe apenas pelo cabeçalho obrigatório do tema. */

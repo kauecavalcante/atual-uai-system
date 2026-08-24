@@ -1,0 +1,270 @@
+@import "tailwindcss";
+
+/* Onde o Tailwind procura classes: todos os templates PHP do tema e o corpo
+ * do formulário CF7 (que vive no banco, mas é versionado em /cf7). */
+@source "../../../**/*.php";
+@source "../../../../cf7/registration-form.txt";
+
+/* ---------------------------------------------------------------------------
+ * Fonte Inter — auto-hospedada (LGPD: sem CDN do Google).
+ * Variable font, mesmo arquivo para todos os pesos usados (400–700).
+ * ------------------------------------------------------------------------- */
+@font-face {
+  font-family: "InterVariable";
+  src: url("../fonts/inter/InterVariable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-inter: "InterVariable";
+}
+
+/* ---------------------------------------------------------------------------
+ * Design tokens — extraídos do Figma
+ * "U.Ai System — Wireframe Landing Page" (fileKey 9R5vtI8pwAE0S9d0bXRkwv)
+ *  · Cores      → section 7:269
+ *  · Tipografia → section 7:275 (Inter)
+ *
+ * As escalas tipográficas são fluidas e interpolam linearmente entre os dois
+ * breakpoints desenhados: 360px (Home Mob) e 1366px (Desktop).
+ * ------------------------------------------------------------------------- */
+@theme {
+  --color-brand: #1b449d;
+  --color-accent: #3adcdd;
+  /* Tons de texto usados a partir da seção de serviços (nós 7:64 e 7:104). */
+  --color-ink: #161c28;
+  --color-muted: #a9a7b6;
+  /* Erro de formulário — contraste 7.4:1 sobre o card ciano #3adcdd. */
+  --color-danger: #8c0f28;
+
+  --font-sans:
+    var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* h1 do hero — 32px/33.907px (360) → 80px/80px (1366), tracking -0.02em */
+  --text-hero-title: clamp(2rem, 0.9264rem + 4.7714vw, 5rem);
+  --text-hero-title--line-height: clamp(2.1192rem, 1.0883rem + 4.5818vw, 5rem);
+  --text-hero-title--letter-spacing: -0.02em;
+  --text-hero-title--font-weight: 700;
+
+  /* subtítulo do hero — 16px (360) → 24px (1366) */
+  --text-hero-lead: clamp(1rem, 0.8211rem + 0.7952vw, 1.5rem);
+  --text-hero-lead--line-height: 1.21;
+  --text-hero-lead--font-weight: 500;
+
+  /* rótulo do CTA — 16px (360) → 18px (1366) */
+  --text-cta: clamp(1rem, 0.9553rem + 0.1988vw, 1.125rem);
+  --text-cta--line-height: 1.21;
+  --text-cta--font-weight: 700;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: #fff;
+    color: var(--color-brand);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Foco visível consistente e com contraste sobre o fundo azul do hero. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* ---------------------------------------------------------------------
+   * Drawer do menu mobile (`<dialog>` modal) — frame "Menu Mob" 7:553.
+   * Zera os defaults do <dialog> e anima entrada/saída com `allow-discrete`,
+   * sem JS de transição.
+   * ------------------------------------------------------------------- */
+  .site-drawer {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+  }
+
+  .site-drawer::backdrop {
+    background-color: rgb(10 25 60 / 0.6);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .site-drawer {
+      transition:
+        translate 280ms ease,
+        display 280ms allow-discrete,
+        overlay 280ms allow-discrete;
+    }
+
+    .site-drawer:not([open]) {
+      translate: -100% 0;
+    }
+
+    .site-drawer::backdrop {
+      transition:
+        opacity 280ms ease,
+        display 280ms allow-discrete,
+        overlay 280ms allow-discrete;
+    }
+
+    .site-drawer:not([open])::backdrop {
+      opacity: 0;
+    }
+  }
+
+  /* ---------------------------------------------------------------------
+   * Header fixo — transparente no topo (camuflado no hero) e com faixa de
+   * vidro azul translúcido ao scrollar (classe .is-scrolled aplicada por
+   * assets/js/header-scroll.js). O texto branco continua legível sobre o
+   * vidro em qualquer seção.
+   * ------------------------------------------------------------------- */
+  .site-header {
+    transition:
+      background-color 200ms ease,
+      box-shadow 200ms ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-header {
+      transition: none;
+    }
+  }
+
+  .site-header.is-scrolled {
+    background-color: rgb(27 68 157 / 0.75);
+    /* Safari < 18 só entende com prefixo. */
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    /* Fio ciano sutil na base — a "barrazinha" que tira o header do 100%
+     * camuflado sem virar barra sólida. */
+    box-shadow: 0 1px 0 rgb(58 220 221 / 0.25);
+  }
+
+  /* ---------------------------------------------------------------------
+   * Formulário de cadastro (Contact Form 7).
+   * Réplica dos primitivos de `ui/field.tsx` e `ui/button.tsx` do projeto
+   * Next. Classes nomeadas porque as tags do CF7 não aceitam utilitárias
+   * com colchetes; o resto do markup (labels, grid) vive em
+   * /cf7/registration-form.txt com utilitárias normais.
+   * ------------------------------------------------------------------- */
+
+  /* O CF7 envolve cada controle num <span class="wpcf7-form-control-wrap">.
+   * `display: contents` tira o span do layout: o input e a mensagem de erro
+   * participam direto do flex-col do campo, como no design.
+   * Exceção: o wrap do honeypot (plugin CF7 Honeypot) se esconde com estilos
+   * inline no próprio span — display:contents anularia a caixa e exporia o
+   * campo-armadilha. */
+  .wpcf7-form-control-wrap:not(.cf7apps-honeypot-wrap) {
+    display: contents;
+  }
+
+  .atual-input,
+  .atual-file {
+    @apply text-ink placeholder:text-muted h-[43px] w-full rounded-lg border border-transparent bg-white text-[14px];
+    @apply focus-visible:outline-brand focus-visible:outline-2 focus-visible:outline-offset-2;
+    @apply disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .atual-input {
+    @apply px-2 lg:px-4;
+  }
+
+  .atual-file {
+    @apply cursor-pointer px-2 py-[9px] lg:px-3;
+    @apply file:text-brand file:bg-brand/10 file:mr-2 file:h-[25px] file:cursor-pointer file:rounded file:border-0 file:px-2 file:text-[14px] file:leading-[25px] file:font-medium;
+    @apply hover:file:bg-brand/15;
+  }
+
+  /* CF7 marca o controle inválido com a classe e aria-invalid. */
+  .atual-input.wpcf7-not-valid,
+  .atual-file.wpcf7-not-valid {
+    border-color: var(--color-danger);
+  }
+
+  /* Botão "Enviar" — variantes solid + form de ui/button.tsx. */
+  .atual-submit {
+    @apply inline-flex items-center justify-center rounded-full whitespace-nowrap uppercase;
+    @apply transition-[filter,transform,box-shadow] duration-200 ease-out;
+    @apply motion-safe:hover:-translate-y-px motion-safe:active:translate-y-0;
+    @apply focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white;
+    @apply disabled:pointer-events-none disabled:opacity-60;
+    @apply bg-brand text-white hover:brightness-125;
+    @apply h-[46px] w-full gap-2.5 px-[30px] text-[18px] font-bold;
+  }
+
+  /* Mensagem de erro sob o campo (réplica do <p class="text-danger"> do
+   * field.tsx). */
+  .wpcf7-not-valid-tip {
+    @apply text-danger mt-1.5 text-[13px] leading-[1.3] font-medium;
+  }
+
+  /* Caixa de status do envio (réplica do painel de resultado do
+   * registration-form.tsx). Posicionada pelo tag [response] dentro do card. */
+  .wpcf7-response-output {
+    @apply text-brand mb-4 rounded-lg bg-white px-4 py-3 text-[15px] leading-[1.35] font-medium;
+    display: none;
+  }
+
+  .wpcf7-form.invalid .wpcf7-response-output,
+  .wpcf7-form.unaccepted .wpcf7-response-output,
+  .wpcf7-form.failed .wpcf7-response-output,
+  .wpcf7-form.aborted .wpcf7-response-output,
+  .wpcf7-form.spam .wpcf7-response-output {
+    display: block;
+    color: var(--color-danger);
+  }
+
+  .wpcf7-form.sent .wpcf7-response-output {
+    display: block;
+  }
+
+  /* Spinner do CF7 durante o envio. */
+  .wpcf7-spinner {
+    @apply mx-auto mt-3 block size-5 animate-spin rounded-full;
+    border: 2px solid rgb(255 255 255 / 0.4);
+    border-top-color: #fff;
+    visibility: hidden;
+  }
+
+  .wpcf7-form.submitting .wpcf7-spinner {
+    visibility: visible;
+  }
+
+  /* Enquanto envia, trava o botão como o `disabled={isPending}` original. */
+  .wpcf7-form.submitting .atual-submit {
+    pointer-events: none;
+    opacity: 0.6;
+  }
+}
+
+/* `@starting-style` precisa ficar no topo do arquivo, fora de `@layer` e de
+ * `@media`: aninhado, o Chrome trata a regra como estilo normal e o drawer
+ * fica preso fora da tela. Aqui ele só define o estado inicial da transição. */
+@starting-style {
+  .site-drawer[open] {
+    translate: -100% 0;
+  }
+
+  .site-drawer[open]::backdrop {
+    opacity: 0;
+  }
+}

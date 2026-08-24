@@ -1,0 +1,61 @@
+============================================================
+CF7 "Cadastro Atual" — aba "E-mail" e aba "Mensagens"
+============================================================
+
+--- ABA E-MAIL (e-mail principal) ---
+
+Para:        financeiro@atualsecuritizadora.com.br   ← CONFIRMAR com o cliente
+De:          Atual <wordpress@SEU-DOMINIO.com.br>    ← usar e-mail do próprio domínio (o WP Mail SMTP cuida da entrega)
+Assunto:     [Cadastro] Nova solicitação — [empresa] (CNPJ [cnpj])
+Cabeçalhos adicionais:
+Reply-To: [email]
+
+Corpo da mensagem:
+------------------------------------------------------------
+Novo cadastro recebido pelo site.
+
+CNPJ: [cnpj]
+Empresa (razão social): [empresa]
+Nome fantasia: [nome-fantasia]
+Telefone: [telefone]
+E-mail: [email]
+
+Documentos anexados (quando enviados) seguem neste e-mail.
+------------------------------------------------------------
+
+Anexos de arquivo (campo "Arquivos anexados"):
+[contrato-social]
+[alteracao-contratual]
+[faturamento-balanco]
+[comprovante-residencia]
+[rg-cnh]
+
+IMPORTANTE: marcar a caixa "Excluir campos vazios de saída" ajuda
+a manter o e-mail limpo quando nem todos os documentos vierem.
+
+--- ABA MENSAGENS (textos iguais aos do projeto Next) ---
+
+Mensagem enviada com sucesso:
+  Cadastro enviado! Em breve um dos nossos especialistas entra em contato.
+
+Falha no envio da mensagem:
+  Não conseguimos enviar seu cadastro agora. Tente novamente em instantes.
+
+Erro de validação:
+  Confira os campos destacados e envie novamente.
+
+Campo obrigatório não preenchido:
+  Preencha este campo.
+
+Arquivo maior que o permitido:
+  O arquivo precisa ter no máximo 5 MB.
+
+Tipo de arquivo não permitido:
+  Formato não aceito. Envie PDF, JPG, PNG ou WEBP.
+
+E-mail inválido:
+  E-mail inválido.
+
+Telefone inválido:
+  Telefone inválido — inclua o DDD.
+============================================================

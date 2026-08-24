@@ -1,0 +1,13 @@
+{
+  "name": "atual-wordpress",
+  "private": true,
+  "description": "Build do CSS (Tailwind v4) do tema WordPress 'atual'. Só roda localmente — o tema embarca o CSS compilado.",
+  "scripts": {
+    "build:css": "tailwindcss -i atual/assets/css/src/main.css -o atual/assets/css/main.css --minify",
+    "watch:css": "tailwindcss -i atual/assets/css/src/main.css -o atual/assets/css/main.css --watch"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4",
+    "tailwindcss": "^4"
+  }
+}

@@ -1,0 +1,75 @@
+<!-- ============================================================
+Formulário "Cadastro Atual" — Contact Form 7
+Colar este conteúdo na aba "Formulário" de um form do CF7 com o
+título EXATAMENTE "Cadastro Atual" (o template registration.php
+busca por esse título).
+
+Requer os plugins: Contact Form 7, Honeypot for Contact Form 7,
+Flamingo e WP Mail SMTP.
+
+Este arquivo é lido pelo build do Tailwind (@source), então as
+classes utilitárias aqui DEVEM ficar em sincronia com o admin:
+mudou lá, atualize aqui e recompile o CSS.
+============================================================= -->
+<div class="bg-accent grid grid-cols-1 gap-x-6 gap-y-6 rounded-[20px] px-5 py-10 lg:grid-cols-2 lg:gap-y-[37px] lg:px-10 lg:py-20">
+
+[honeypot website]
+
+<div class="flex flex-col">
+<label for="cadastro-cnpj" class="text-brand mb-2 text-[16px] leading-[1.1875] font-medium">CNPJ<span aria-hidden="true"> *</span></label>
+[text* cnpj id:cadastro-cnpj class:atual-input autocomplete:off placeholder "CNPJ"]
+</div>
+
+<div class="flex flex-col">
+<label for="cadastro-empresa" class="text-brand mb-2 text-[16px] leading-[1.1875] font-medium">Empresa<span aria-hidden="true"> *</span></label>
+[text* empresa id:cadastro-empresa class:atual-input autocomplete:organization maxlength:120 placeholder "Empresa"]
+</div>
+
+<div class="flex flex-col lg:col-span-2">
+<label for="cadastro-nome-fantasia" class="text-brand mb-2 text-[16px] leading-[1.1875] font-medium">Nome fantasia<span aria-hidden="true"> *</span></label>
+[text* nome-fantasia id:cadastro-nome-fantasia class:atual-input autocomplete:off maxlength:120 placeholder "Nome fantasia"]
+</div>
+
+<div class="flex flex-col">
+<label for="cadastro-telefone" class="text-brand mb-2 text-[16px] leading-[1.1875] font-medium">Telefone<span aria-hidden="true"> *</span></label>
+[tel* telefone id:cadastro-telefone class:atual-input autocomplete:tel placeholder "Telefone"]
+</div>
+
+<div class="flex flex-col">
+<label for="cadastro-email" class="text-brand mb-2 text-[16px] leading-[1.1875] font-medium">E-mail<span aria-hidden="true"> *</span></label>
+[email* email id:cadastro-email class:atual-input autocomplete:email maxlength:160 placeholder "E-mail"]
+</div>
+
+<h3 class="text-brand text-[18px] leading-[1.21] font-bold lg:col-span-2">Você Sócio, anexe sua documentação aqui!</h3>
+
+<div class="flex flex-col">
+<label for="cadastro-contrato-social" class="text-brand mb-2 text-[16px] leading-[1.1875] font-medium">Contrato social</label>
+[file contrato-social id:cadastro-contrato-social class:atual-file limit:5mb filetypes:pdf|jpg|jpeg|png|webp]
+</div>
+
+<div class="flex flex-col">
+<label for="cadastro-alteracao-contratual" class="text-brand mb-2 text-[16px] leading-[1.1875] font-medium">Alteração contratual mais recente</label>
+[file alteracao-contratual id:cadastro-alteracao-contratual class:atual-file limit:5mb filetypes:pdf|jpg|jpeg|png|webp]
+</div>
+
+<div class="flex flex-col lg:col-span-2">
+<label for="cadastro-faturamento-balanco" class="text-brand mb-2 text-[16px] leading-[1.1875] font-medium">Faturamento e balanço dos último ano dos sócios</label>
+[file faturamento-balanco id:cadastro-faturamento-balanco class:atual-file limit:5mb filetypes:pdf|jpg|jpeg|png|webp]
+</div>
+
+<div class="flex flex-col">
+<label for="cadastro-comprovante-residencia" class="text-brand mb-2 text-[16px] leading-[1.1875] font-medium">Comprovante de residencia</label>
+[file comprovante-residencia id:cadastro-comprovante-residencia class:atual-file limit:5mb filetypes:pdf|jpg|jpeg|png|webp]
+</div>
+
+<div class="flex flex-col">
+<label for="cadastro-rg-cnh" class="text-brand mb-2 text-[16px] leading-[1.1875] font-medium">RG ou CNH</label>
+[file rg-cnh id:cadastro-rg-cnh class:atual-file limit:5mb filetypes:pdf|jpg|jpeg|png|webp]
+</div>
+
+<div class="lg:col-span-2">
+[response]
+[submit class:atual-submit "Enviar"]
+</div>
+
+</div>
